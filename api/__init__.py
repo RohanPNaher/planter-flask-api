@@ -12,6 +12,7 @@ from api.models.garden import Garden
 
 # ============ Import Views ============
 from api.views.auth import auth
+from api.views.gardens import gardens
 
 cors = CORS()
 migrate = Migrate() 
@@ -27,6 +28,7 @@ def create_app(config):
 
   # ============ Register Blueprints ============
   app.register_blueprint(auth, url_prefix='/api/auth') 
+  app.register_blueprint(gardens, url_prefix='/api/gardens') 
 
   return app
 
