@@ -1,12 +1,14 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
+from sqlalchemy import union
 from api.models.db import db
 from config import Config
 
 # ============ Import Models ============
 from api.models.user import User
 from api.models.profile import Profile
+from api.models.garden import Garden
 
 # ============ Import Views ============
 from api.views.auth import auth
