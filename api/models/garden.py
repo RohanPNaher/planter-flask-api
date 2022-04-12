@@ -6,7 +6,7 @@ class Garden(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String)
   garden_description = db.Column(db.String)
-  type = db.Column('garden_type', db.Enum('Outdoor', 'Indoor', name='garden_type'))
+  garden_type = db.Column('garden_type', db.Enum('Outdoor', 'Indoor', name='garden_type'))
   created_at = db.Column(db.DateTime, default=datetime.utcnow)
   profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
   plants = db.relationship('Plant', cascade='all')

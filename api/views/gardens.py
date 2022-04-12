@@ -4,6 +4,8 @@ from api.middleware import login_required, read_token
 
 from api.models.db import db
 from api.models.garden import Garden
+from api.models.plant import Plant
+from api.views.auth import login
 
 gardens = Blueprint('gardens', 'gardens')
 
@@ -62,3 +64,24 @@ def delete(id):
   db.session.delete(garden)
   db.session.commit()
   return jsonify(message="Success"), 200
+
+
+# Add a specific plant
+@gardens.route('/<id>/plants', methods=["POST"])
+@login_required
+def add_plant(id):
+  data = request.get_json()
+  data["garden_id"] = id
+
+  profile = read_token(request)
+  garden = Garden.query.filter_by(id=id).first()
+
+  if garden.profile_id != profile["id"]:
+    return 'Forbidden', 403
+  
+  plant = Plant(**data)
+
+  db.session.add(plant)
+  db.session.commit()
+  garden_data = garden.serialize()
+  return jsonify(garden_data), 201

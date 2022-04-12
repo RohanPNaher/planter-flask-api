@@ -11,7 +11,7 @@ class Plant(db.Model):
   plant_name = db.Column(db.String)
   plant_description = db.Column(db.String)
   is_watered = db.Column(db.Boolean, default=False, nullable=False)
-  water_schedule = db.Column('water schedule', db.Enum('Daily', 'Every Other Day', 'Every Three Days', 'Weekly', 'Top-Up Whenever', name='water_schedule_type'))
+  water_schedule = db.Column('water_schedule', db.Enum('Daily', 'Every Other Day', 'Every Three Days', 'Weekly', 'Top-Up Whenever', name='water_schedule_type'))
   created_at = db.Column(db.DateTime, default=datetime.now(tz=None))
   garden_id = db.Column(db.Integer, db.ForeignKey('gardens.id'))
 
