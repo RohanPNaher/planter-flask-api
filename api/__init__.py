@@ -9,6 +9,7 @@ from config import Config
 from api.models.user import User
 from api.models.profile import Profile
 from api.models.garden import Garden
+from api.models.plant import Plant
 
 # ============ Import Views ============
 from api.views.auth import auth
