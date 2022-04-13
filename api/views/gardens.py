@@ -5,7 +5,6 @@ from api.middleware import login_required, read_token
 from api.models.db import db
 from api.models.garden import Garden
 from api.models.plant import Plant
-from api.views.auth import login
 
 gardens = Blueprint('gardens', 'gardens')
 
@@ -86,33 +85,33 @@ def add_plant(id):
   garden_data = garden.serialize()
   return jsonify(garden_data), 201
 
-# Delete a Specific Plant in a Garden
-@gardens.route('/<id>/plants/<id>', methods=["DELETE"]) 
-@login_required
-def delete(id):
-  profile = read_token(request)
-  plant = Plant.query.filter_by(id=id).first()
+# # Delete a Specific Plant in a Garden
+# @gardens.route('/<id>/plants/<id>', methods=["DELETE"]) 
+# @login_required
+# def delete(id):
+#   profile = read_token(request)
+#   plant = Plant.query.filter_by(id=id).first()
 
-  if plant.profile_id != profile["id"]:
-    return 'Forbidden', 403
+#   if plant.profile_id != profile["id"]:
+#     return 'Forbidden', 403
 
-  db.session.delete(plant)
-  db.session.commit()
-  return jsonify(message="Success"), 200
+#   db.session.delete(plant)
+#   db.session.commit()
+#   return jsonify(message="Success"), 200
 
-# Update a Specific Plant in a Garden
-@gardens.route('/<id>/plants/<id>', methods=["PUT"]) 
-@login_required
-def update(id):
-  data = request.get_json()
-  profile = read_token(request)
-  plant = Plant.query.filter_by(id=id).first()
+# # Update a Specific Plant in a Garden
+# @gardens.route('/<id>/plants/<id>', methods=["PUT"]) 
+# @login_required
+# def update(id):
+#   data = request.get_json()
+#   profile = read_token(request)
+#   plant = Plant.query.filter_by(id=id).first()
 
-  if plant.profile_id != profile["id"]:
-    return 'Forbidden', 403
+#   if plant.profile_id != profile["id"]:
+#     return 'Forbidden', 403
 
-  for key in data:
-    setattr(plant, key, data[key])
+#   for key in data:
+#     setattr(plant, key, data[key])
 
-  db.session.commit()
-  return jsonify(plant.serialize()), 200
+#   db.session.commit()
+#   return jsonify(plant.serialize()), 200
